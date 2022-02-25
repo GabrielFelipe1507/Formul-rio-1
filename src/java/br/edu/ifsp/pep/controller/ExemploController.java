@@ -11,7 +11,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 @Named
-//@RequestScoped
 @ViewScoped
 public class ExemploController implements Serializable{
     private Pessoa pessoa;
@@ -21,6 +20,10 @@ public class ExemploController implements Serializable{
         System.out.println("construtor.");
         this.pessoa=new Pessoa();
     }
+    public void excluir(){
+        pessoas.remove(this.pessoa);
+    }
+    
    public void adicionar(){
        System.out.println("adicionou a pessoa na lista");
        System.out.println("Nome: " + this.pessoa.getNome());
