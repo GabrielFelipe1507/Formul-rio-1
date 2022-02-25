@@ -14,7 +14,7 @@
         <h:form id="formulario">
             <p:growl id="growl" showDetail="true"/>
 
-            
+
 
             <div class="card">
                 <h5>Preencha o Formulario a seguir</h5>
@@ -43,11 +43,16 @@
 
             </div>            
 
-          <center>  <p:commandButton value="Adicionar" 
-                                     action="#{exemploController.adicionar}" update="formulario" /> </center>
-                                     
-                                    <p:dataTable id="tabela" var="pessoa" value="#{exemploController.pessoas}"> 
-                                     
+            <center>  <p:commandButton value="Adicionar" 
+                                       action="#{exemploController.adicionar}" update="formulario" /> </center>
+
+            <p:dataTable id="tabela" var="pessoa" 
+                         value="#{exemploController.pessoas}"
+                         selection="#{exemploController.pessoa}"
+                         selectionMode="single"
+                         rowKey="#{pessoa.nome}"
+                         > 
+
                 <f:facet name="header">                    
                     Pessoas Cadastradas
                 </f:facet>>
@@ -64,7 +69,11 @@
                 <p:column headerText="UF">
                     <h:outputText value="#{pessoa.uf}"/>
                 </p:column>
-
+                <f:facet name="footer">
+                    <p:commandButton value="Excluir" 
+                                     action="#{exemploController.excluir()}"
+                                     update="tabela"/>                    
+                </f:facet>
             </p:dataTable>
         </h:form>
 
