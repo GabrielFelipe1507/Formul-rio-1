@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="/css/primeflex.min.css" />
+    </h:head>
+    <h:body>
+        <center><h1> Primeiro Formulário em Java Web</h1> </center> <br></br> <br></br>
+
+        <h:form id="formulario">
+            <p:growl id="growl" showDetail="true"/>
+
+            
+
+            <div class="card">
+                <h5>Preencha o Formulario a seguir</h5>
+                <p:panelGrid columns="4" layout="flex"
+                             columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+                             contentStyleClass="ui-fluid">
+                    <p:outputLabel for="nome" value="Nome" />
+                    <p:inputText id="nome" value="#{exemploController.pessoa.nome}"/>
+
+                    <p:outputLabel for="date" value="Data de nascimento" />
+                    <p:datePicker id="date" showIcon="true" style="width:auto" value="#{exemploController.pessoa.dataNascimento}" />
+
+                    <p:outputLabel for="status" value="Status" />
+                    <p:selectBooleanButton id="status" onLabel="Ativo" offLabel="Inativo" 
+                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" value="#{exemploController.pessoa.status}" />
+
+                    <p:outputLabel for="uf" value="UF"/>
+                    <p:selectOneMenu id="uf" value="#{exemploController.pessoa.uf}">
+                        <f:selectItem itemLabel="Selecione" itemValue=""/>
+                        <f:selectItem itemLabel="SP" itemValue="SP"/>
+                        <f:selectItem itemLabel="PR" itemValue="PR"/>
+                        <f:selectItem itemLabel="MG" itemValue="MG"/>
+                    </p:selectOneMenu>
+
+                </p:panelGrid>
+
+            </div>            
+
+          <center>  <p:commandButton value="Adicionar" 
+                                     action="#{exemploController.adicionar}" update="formulario" /> </center>
+                                     
+                                    <p:dataTable id="tabela" var="pessoa" value="#{exemploController.pessoas}"> 
+                                     
+                <f:facet name="header">                    
+                    Pessoas Cadastradas
+                </f:facet>>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{pessoa.nome}"/>
+                </p:column>
+                <p:column headerText="Data de Nascimento">
+                    <h:outputText value="#{pessoa.dataNascimento}"/>
+                </p:column>
+                <p:column headerText="Status">
+                    <h:outputText value="#{pessoa.status}"/>
+                </p:column>
+                <p:column headerText="UF">
+                    <h:outputText value="#{pessoa.uf}"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+
