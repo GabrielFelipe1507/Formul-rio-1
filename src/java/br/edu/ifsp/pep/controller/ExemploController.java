@@ -67,7 +67,8 @@ public class ExemploController implements Serializable {
 
     public List<Pessoa> getPessoas() {
 //        return pessoas;
-        return null;
+        System.out.println("Carregando");
+        return pessoaDAO.buscarTodos();
     }
 
 //    public void setPessoas(List<Pessoa> pessoas) {
