@@ -5,6 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <link href=" aula2Javaweb/Web Pages/resources/css/estilo.css" rel="stylesheet"/>
         <title>Facelet Title</title>
         <h:outputStylesheet name="/css/primeflex.min.css" />
     </h:head>
@@ -15,24 +16,37 @@
             <p:growl id="growl" showDetail="true"/>
 
 
-
             <div class="card">
-                <h5>Preencha o Formulario a seguir</h5>
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+                <h5>Cadastro de Pessoas</h5>
                 <p:panelGrid columns="4" layout="flex"
                              columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
                              contentStyleClass="ui-fluid">
                     <p:outputLabel for="nome" value="Nome" />
-                    <p:inputText id="nome" value="#{exemploController.pessoa.nome}"/>
+                    <p:inputText id="nome" 
+                                 value="#{exemploController.pessoa.nome}" 
+                                 required="true"
+                                 requiredMessage="Informe o Nome"/>
 
                     <p:outputLabel for="date" value="Data de nascimento" />
-                    <p:datePicker id="date" showIcon="true" style="width:auto" value="#{exemploController.pessoa.dataNascimento}" />
+                    <p:datePicker id="date" showIcon="true" style="width:auto" 
+                                  value="#{exemploController.pessoa.dataNascimento}"  
+                                  required="true"
+                                  requiredMessage="Informe a Data de Nascimento"/>
 
                     <p:outputLabel for="status" value="Status" />
                     <p:selectBooleanButton id="status" onLabel="Ativo" offLabel="Inativo" 
-                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" value="#{exemploController.pessoa.status}" />
+                                           onIcon="pi pi-check" offIcon="pi pi-times" style="width:6rem" 
+                                           value="#{exemploController.pessoa.status}"/>
+
 
                     <p:outputLabel for="uf" value="UF"/>
-                    <p:selectOneMenu id="uf" value="#{exemploController.pessoa.uf}">
+                    <p:selectOneMenu id="uf" 
+                                     value="#{exemploController.pessoa.uf}" 
+                                     required="true"
+                                     requiredMessage="Informe o Estado">
                         <f:selectItem itemLabel="Selecione" itemValue=""/>
                         <f:selectItem itemLabel="SP" itemValue="SP"/>
                         <f:selectItem itemLabel="PR" itemValue="PR"/>
@@ -44,11 +58,13 @@
             </div>            
 
             <center>  <p:commandButton value="Adicionar" 
-                                       action="#{exemploController.adicionar}" update="formulario" /> </center>
-
+                                       action="#{exemploController.adicionar}" 
+                                       update="formulario, growl formTabela:tabela" /> </center> 
+        </h:form> 
+        <h:form id="formTabela">
             <p:dataTable id="tabela" var="pessoa" 
                          value="#{exemploController.pessoas}"
-                         selection="#{exemploController.pessoa}"
+                         selection="#{exemploController.pessoaSelecionada}"
                          selectionMode="single"
                          rowKey="#{pessoa.nome}"
                          > 
@@ -57,7 +73,10 @@
                     Pessoas Cadastradas
                 </f:facet>>
 
-                <p:column headerText="Nome">
+                <p:column headerText="Nome"
+                          sortBy="#{pessoa.nome}"
+                          filterBy="#{pessoa.nome}"
+                          filterMatchMode="contains">
                     <h:outputText value="#{pessoa.nome}"/>
                 </p:column>
                 <p:column headerText="Data de Nascimento">
@@ -70,9 +89,11 @@
                     <h:outputText value="#{pessoa.uf}"/>
                 </p:column>
                 <f:facet name="footer">
-                    <p:commandButton value="Excluir" 
+                    <p:commandButton value="Excluir"
+                                     immediate="true"
                                      action="#{exemploController.excluir()}"
-                                     update="tabela"/>                    
+                                     update="tabela, formulario:growl"                                     
+                                     styleClass="ui-button-raised ui-button-danger" />                    
                 </f:facet>
             </p:dataTable>
         </h:form>

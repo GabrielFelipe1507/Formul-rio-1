@@ -1,12 +1,30 @@
 
 package br.edu.ifsp.pep.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class Pessoa {
+@Entity
+@Table(name="pessoa")
+public class Pessoa implements Serializable{
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="codigo")
+    private int codigo;
+    @Column(name="nome", length = 50, nullable = false)
     private String nome;
+    @Column(name="data_nascimento", nullable = false)
     private Date dataNascimento;
+    @Column(name="status", nullable = false)
     private boolean status;
+    @Column(name="uf", nullable = false, length = 2)
     private String uf;
     
     public String getNome() {
@@ -38,6 +56,31 @@ public class Pessoa {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 83 * hash + this.codigo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        if (this.codigo != other.codigo) {
+            return false;
+        }
+        return true;
     }
     
     
