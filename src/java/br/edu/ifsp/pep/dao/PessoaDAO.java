@@ -15,6 +15,14 @@ public class PessoaDAO {
     public void inserir(Pessoa pessoa) {
         em.persist(pessoa);
     }
+    public void excluir(Pessoa pessoa){
+//        em.remove(pessoa.getCodigo());
+        if(!em.contains(pessoa)){
+            pessoa=em.merge(pessoa);
+        }
+        em.remove(pessoa);
+//        em.createQuery("delete from pessoa p where codigo=p.codigo", getCodigo());
+    }
 
     public List<Pessoa> buscarTodos() {
         return em.createQuery("Select p FROM Pessoa p", Pessoa.class).getResultList();

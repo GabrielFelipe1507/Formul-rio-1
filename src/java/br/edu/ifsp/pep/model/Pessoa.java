@@ -58,6 +58,16 @@ public class Pessoa implements Serializable{
         this.uf = uf;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -81,6 +91,11 @@ public class Pessoa implements Serializable{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Pessoa{" + "codigo=" + codigo + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", status=" + status + ", uf=" + uf + '}';
     }
     
     

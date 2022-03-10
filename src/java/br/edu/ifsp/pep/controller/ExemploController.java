@@ -18,25 +18,14 @@ public class ExemploController implements Serializable {
 
     @Inject
     private PessoaDAO pessoaDAO;
-    
+
     private Pessoa pessoa;
     private Pessoa pessoaSelecionada;
-//    private List<Pessoa> pessoas = new ArrayList<>();
+    private List<Pessoa> pessoas;
 
     public ExemploController() {
         System.out.println("construtor.");
         this.pessoa = new Pessoa();
-    }
-
-    public void excluir() {
-//        if (pessoaSelecionada != null) {
-//
-//            pessoas.remove(pessoaSelecionada);
-//            addMessage(FacesMessage.SEVERITY_INFO, "Informação", "Pessoa excluida");
-//            return;
-//        } else {
-//            addMessage(FacesMessage.SEVERITY_WARN, "Informação", "Selecione Pessoa");
-//        }
     }
 
     public void adicionar() {
@@ -47,15 +36,17 @@ public class ExemploController implements Serializable {
         addMessage(FacesMessage.SEVERITY_INFO, "Informação", "Cadastro Realizado");
     }
 
+    public void excluir() {
+        System.out.println("Você Excluiu uma Pessoa da Lista");
+        this.pessoaDAO.excluir(pessoaSelecionada);        
+        System.out.println(pessoaSelecionada);
+        addMessage(FacesMessage.SEVERITY_INFO, "Informação", "Pessoa Excluida");
+    }
+
     private void addMessage(FacesMessage.Severity severity, String summary, String detail) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, summary, detail));
     }
 
-//    public void exibir() {
-//        for (Pessoa p : pessoas) {
-//            System.out.println(p.getNome());
-//        }
-//    }
 
     public Pessoa getPessoa() {
         return pessoa;
@@ -74,7 +65,6 @@ public class ExemploController implements Serializable {
 //    public void setPessoas(List<Pessoa> pessoas) {
 //        this.pessoas = pessoas;
 //    }
-
     public Pessoa getPessoaSelecionada() {
         return pessoaSelecionada;
     }
@@ -82,5 +72,5 @@ public class ExemploController implements Serializable {
     public void setPessoaSelecionada(Pessoa pessoaSelecionada) {
         this.pessoaSelecionada = pessoaSelecionada;
     }
-    
+
 }
